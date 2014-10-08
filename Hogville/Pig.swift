@@ -40,6 +40,14 @@ class Pig: SKSpriteNode {
             let targetPoint = wayPoints[0]
             
             // 2 TODO: add movement logic here
+            let offset = CGPoint(x: targetPoint.x - currentPosition.x, y: targetPoint.y - currentPosition.y)
+            let length = Double(sqrtf(Float(offset.x * offset.x) + Float(offset.y * offset.y)))
+            let direction = CGPoint(x: CGFloat(offset.x) / CGFloat(length), y: CGFloat(offset.y) / CGFloat(length))
+            velocity = CGPoint(x: direction.x * POINTS_PER_SEC, y: direction.y * POINTS_PER_SEC)
+            
+            // 2
+            newPosition = CGPoint(x: currentPosition.x + velocity.x * CGFloat(dt), y: currentPosition.y + velocity.y * CGFloat(dt))
+            position = newPosition
             
             // 3
             if frame.contains(targetPoint) {
