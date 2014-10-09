@@ -55,4 +55,28 @@ class Pig: SKSpriteNode {
             }
         }
     }
+    
+    func createPathToMove() -> CGPathRef? {
+        //1
+        if wayPoints.count <= 1 {
+            return nil
+        }
+        
+        //2
+        var ref = CGPathCreateMutable()
+        
+        //3
+        for var i = 0; i < wayPoints.count; i++ {
+            let p = wayPoints[i]
+            
+            //4
+            if i == 0 {
+                CGPathMoveToPoint(ref, nil, p.x, p.y)
+            } else {
+                CGPathAddLineToPoint(ref, nil, p.x, p.y)
+            }
+        }
+        
+        return ref
+    }
 }
