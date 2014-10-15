@@ -70,9 +70,8 @@ class GameScene: SKScene {
   
   func drawLines() {
     //1
-    enumerateChildNodesWithName("lines", usingBlock: { node, stop in
+    enumerateChildNodesWithName("line", usingBlock: { node, stop in
       node.removeFromParent()
-    
     })
     
     //2
@@ -84,7 +83,7 @@ class GameScene: SKScene {
         shapeNode.path = path
         shapeNode.name = "line"
         shapeNode.strokeColor = UIColor.grayColor()
-        shapeNode.lineWidth = 2
+        shapeNode.lineWidth = 4
         shapeNode.zPosition = 1
         
         self.addChild(shapeNode)

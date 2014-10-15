@@ -47,13 +47,15 @@ class Pig: SKSpriteNode {
             
             // 2
             newPosition = CGPoint(x: currentPosition.x + velocity.x * CGFloat(dt), y: currentPosition.y + velocity.y * CGFloat(dt))
-            position = newPosition
             
             // 3
             if frame.contains(targetPoint) {
                 wayPoints.removeAtIndex(0)
             }
+        } else {
+            newPosition = CGPoint(x: currentPosition.x + velocity.x * CGFloat(dt), y: currentPosition.y + velocity.y * CGFloat(dt))
         }
+        position = checkBoundaries(newPosition)
     }
     
     func createPathToMove() -> CGPathRef? {
@@ -78,5 +80,36 @@ class Pig: SKSpriteNode {
         }
         
         return ref
+    }
+    
+    func checkBoundaries(position: CGPoint) -> CGPoint {
+        //1
+        var newVelocity = velocity
+        var newPosition = position
+        
+        //2
+        let bottomLeft = CGPoint(x: 0, y: 0)
+        let topRight = CGPoint(x: scene!.size.width, y: scene!.size.height)
+        
+        //3
+        if newPosition.x <= bottomLeft.x {
+            newPosition.x = bottomLeft.x
+            newVelocity.x = -newVelocity.x
+        } else if newPosition.x >= topRight.x {
+            newPosition.x = topRight.x
+            newVelocity.x = -newVelocity.x
+        }
+        
+        if newPosition.y <= bottomLeft.y {
+            newPosition.y = bottomLeft.y
+            newVelocity.y = -newVelocity.y
+        } else if newPosition.y >= topRight.y {
+            newPosition.y = topRight.y
+            newVelocity.y = -newVelocity.y
+        }
+        
+        velocity = newVelocity
+        
+        return newPosition
     }
 }
